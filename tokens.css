@@ -1,0 +1,383 @@
+/* ─────────────────────────────────────────────────────────────
+   Andrey Andreev — Personal Brand System
+   Shared design tokens
+   ───────────────────────────────────────────────────────────── */
+
+/* Brand fonts — local TTF files */
+@font-face {
+  font-family: 'Manrope';
+  src: url('fonts/Manrope-ExtraLight.ttf') format('truetype');
+  font-weight: 200; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Manrope';
+  src: url('fonts/Manrope-Light.ttf') format('truetype');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Manrope';
+  src: url('fonts/Manrope-Regular.ttf') format('truetype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Manrope';
+  src: url('fonts/Manrope-Medium.ttf') format('truetype');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Manrope';
+  src: url('fonts/Manrope-SemiBold.ttf') format('truetype');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Manrope';
+  src: url('fonts/Manrope-Bold.ttf') format('truetype');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Manrope';
+  src: url('fonts/Manrope-ExtraBold.ttf') format('truetype');
+  font-weight: 800; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('fonts/InstrumentSerif-Regular.ttf') format('truetype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('fonts/InstrumentSerif-Italic.ttf') format('truetype');
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+/* Mono — used sparingly, kept via Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ── Core neutrals ───────────────────────── */
+  --ink:        #0E0E0E;   /* near-black, primary text on light */
+  --ink-2:      #2A2A2A;
+  --ink-3:      #555;
+  --ink-mute:   #8A8A8A;
+  --line:       #E6E3DD;   /* warm hairline */
+  --line-2:     #D6D2C9;
+
+  --paper:      #F4F0E8;   /* warm off-white, primary surface */
+  --paper-2:    #ECE6DA;
+  --paper-3:    #E1DACB;
+  --white:      #FFFFFF;
+
+  /* ── Brand accents ───────────────────────── */
+  --coral:      #E86F4D;   /* signature CTA / badge */
+  --coral-soft: #F4A48A;
+  --coral-bg:   #EE8A6B;   /* slide background variant */
+
+  --sky:        #A9C2DD;   /* hoodie-blue from carousels */
+  --sky-bg:     #9BB7D6;
+  --sky-soft:   #C9D8E8;
+
+  --citrus:     #F4D24A;   /* highlighter yellow */
+  --citrus-bg:  #F1C84B;
+
+  --sage:       #9FBE9D;   /* speech-bubble green */
+  --sage-bg:    #B7CEAB;
+
+  --rose:       #E8C7BC;   /* warm beige tone */
+
+  /* ── Semantic surfaces ───────────────────── */
+  --bg:         var(--paper);
+  --fg:         var(--ink);
+  --card:       var(--white);
+
+  /* ── Typography ──────────────────────────── */
+  --font-sans:  'Manrope', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+  --font-serif: 'Instrument Serif', 'Times New Roman', serif;
+  --font-mono:  'JetBrains Mono', ui-monospace, monospace;
+
+  /* Type scale (display → micro) */
+  --t-display:  clamp(56px, 7.2vw, 112px);
+  --t-h1:       clamp(40px, 4.6vw, 72px);
+  --t-h2:       clamp(28px, 2.8vw, 44px);
+  --t-h3:       22px;
+  --t-body:     17px;
+  --t-small:    14px;
+  --t-micro:    12px;
+
+  /* ── Spacing & radii ─────────────────────── */
+  --r-sm:  6px;
+  --r-md:  12px;
+  --r-lg:  20px;
+  --r-xl:  28px;
+  --r-pill: 999px;
+
+  --shadow-sm: 0 1px 2px rgba(14,14,14,.06), 0 1px 1px rgba(14,14,14,.04);
+  --shadow-md: 0 8px 24px rgba(14,14,14,.08), 0 2px 6px rgba(14,14,14,.05);
+  --shadow-lg: 0 24px 48px rgba(14,14,14,.12), 0 6px 14px rgba(14,14,14,.06);
+
+  /* ── Layout ──────────────────────────────── */
+  --maxw: 1240px;
+  --gutter: 32px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  line-height: 1.5;
+  color: var(--fg);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* ── Top nav (shared on every page) ───────── */
+.aa-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in oklab, var(--paper) 88%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.aa-nav__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 18px var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.aa-nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -.01em;
+  white-space: nowrap;
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 720px) {
+  .aa-nav__brand .muted { display: none; }
+}
+.aa-nav__brand .mark {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  display: grid; place-items: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 700;
+}
+.aa-nav__links {
+  display: flex;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.aa-nav__links a {
+  padding: 8px 14px;
+  border-radius: var(--r-pill);
+  color: var(--ink-3);
+  transition: all .15s ease;
+}
+.aa-nav__links a:hover { color: var(--ink); background: var(--paper-2); }
+.aa-nav__links a.is-active {
+  color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+.aa-nav__handle {
+  font-size: 13px;
+  color: var(--ink-mute);
+  font-family: var(--font-mono);
+}
+
+/* ── Page header ──────────────────────────── */
+.aa-header {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 80px var(--gutter) 48px;
+}
+.aa-header__eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 16px;
+}
+.aa-header h1 {
+  font-size: var(--t-h1);
+  font-weight: 600;
+  letter-spacing: -.025em;
+  margin: 0 0 16px;
+  line-height: 1.02;
+}
+.aa-header h1 em {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-style: italic;
+}
+.aa-header__lede {
+  font-size: 19px;
+  color: var(--ink-3);
+  max-width: 640px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Section ──────────────────────────────── */
+.aa-section {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 56px var(--gutter);
+  border-top: 1px solid var(--line);
+}
+.aa-section__head {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 48px;
+  margin-bottom: 36px;
+}
+@media (max-width: 800px) {
+  .aa-section__head { grid-template-columns: 1fr; gap: 16px; }
+}
+.aa-section__num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.aa-section__title {
+  font-size: var(--t-h2);
+  font-weight: 600;
+  letter-spacing: -.02em;
+  margin: 4px 0 0;
+  line-height: 1.05;
+}
+.aa-section__title em {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-style: italic;
+}
+.aa-section__lede {
+  font-size: 17px;
+  color: var(--ink-3);
+  margin: 0;
+  max-width: 560px;
+}
+
+/* ── Footer ───────────────────────────────── */
+.aa-foot {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 48px var(--gutter);
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  font-size: 13px;
+  color: var(--ink-mute);
+  font-family: var(--font-mono);
+}
+
+/* ── Reusable: brand brackets ─────────────── */
+.brace {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ink-3);
+}
+
+/* ── Reusable: inline highlight ───────────── */
+.hl {
+  background: var(--citrus);
+  padding: 0 .25em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.hl--coral { background: var(--coral-soft); }
+.hl--sage  { background: var(--sage-bg); }
+
+/* ── Reusable: speech-bubble badge ────────── */
+.bubble {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: var(--coral);
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -.005em;
+}
+.bubble::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  bottom: -7px;
+  width: 14px;
+  height: 14px;
+  background: inherit;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+.bubble--right::after { left: auto; right: 18px; clip-path: polygon(0 0, 100% 0, 100% 100%); }
+.bubble--up::after { bottom: auto; top: -7px; clip-path: polygon(0 100%, 100% 0, 100% 100%); }
+.bubble--sage   { background: var(--sage); color: var(--ink); }
+.bubble--ink    { background: var(--ink); color: var(--paper); }
+.bubble--paper  { background: var(--paper); color: var(--ink); }
+.bubble--citrus { background: var(--citrus); color: var(--ink); }
+
+/* ── Reusable: pill chip ──────────────────── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: var(--r-pill);
+  background: var(--white);
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 500;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--line);
+}
+.chip--ink   { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.chip--coral { background: var(--coral); color: var(--white); border-color: var(--coral); }
+
+/* ── Reusable: ghost numeral ──────────────── */
+.numeral {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 92px;
+  line-height: 1;
+  letter-spacing: -.04em;
+  color: var(--ink);
+  display: block;
+}
+.numeral--ghost { color: transparent; -webkit-text-stroke: 1.5px var(--ink); }
+
+/* utility */
+.row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+.stack-sm > * + * { margin-top: 8px; }
+.stack > * + * { margin-top: 16px; }
+.stack-lg > * + * { margin-top: 32px; }
+.muted { color: var(--ink-mute); }
+.mono  { font-family: var(--font-mono); font-size: 12px; letter-spacing: .04em; }

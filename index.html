@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Коучинг — Андрей Андреев</title>
+<meta name="description" content="Коучинг для тех, у кого снаружи всё есть, а внутри — тише, чем должно быть. ICF · Экспоненциальный · IFS. Сессия-знакомство — 30 000 ₽." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="tokens.css" />
+<style>
+  /* ─── Page-specific styles ─────────────────────────────────── */
+  :root {
+    --max:        1180px;
+    --gutter-x:   clamp(20px, 4vw, 56px);
+    --section-y:  clamp(72px, 10vw, 140px);
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); }
+  a { text-decoration: none; color: inherit; }
+  ::selection { background: var(--coral); color: var(--paper); }
+
+  .container {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 var(--gutter-x);
+  }
+
+  /* ─── Nav ──────────────────────────────────────────────────── */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in oklab, var(--paper) 90%, transparent);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border-bottom: 1px solid color-mix(in oklab, var(--line) 60%, transparent);
+  }
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+  }
+  .nav__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+  }
+  .nav__mark {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    display: grid; place-items: center;
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 18px;
+  }
+  .nav__brand-text { font-size: 15px; }
+  .nav__brand-text .mute { color: var(--ink-mute); margin-left: 4px; }
+  .nav__cta {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 18px;
+    border-radius: var(--r-pill);
+    background: var(--ink);
+    color: var(--paper);
+    transition: transform .2s cubic-bezier(.4,0,.2,1), background .2s;
+  }
+  .nav__cta:hover { background: var(--coral); transform: translateY(-1px); }
+  @media (max-width: 540px) { .nav__brand-text .mute { display: none; } }
+
+  /* ─── Hero ─────────────────────────────────────────────────── */
+  .hero {
+    padding: clamp(80px, 12vw, 160px) 0 clamp(64px, 9vw, 120px);
+    position: relative;
+  }
+  .hero__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero__eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--coral);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .4; transform: scale(1.4); }
+  }
+  .hero__title {
+    font-size: clamp(40px, 6.4vw, 96px);
+    font-weight: 600;
+    letter-spacing: -.035em;
+    line-height: .98;
+    margin: 0 0 36px;
+    max-width: 14ch;
+  }
+  .hero__title em {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: -.015em;
+  }
+  .hero__lede {
+    font-size: clamp(18px, 1.5vw, 22px);
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 60ch;
+    margin: 0 0 24px;
+  }
+  .hero__lede strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .hero__kicker {
+    font-size: clamp(20px, 1.7vw, 26px);
+    font-family: var(--font-serif);
+    font-style: italic;
+    margin-top: 32px;
+    color: var(--ink);
+  }
+
+  /* ─── Section heading ──────────────────────────────────────── */
+  .section { padding: var(--section-y) 0; }
+  .section--soft { background: var(--paper-2); }
+  .section--dark { background: var(--ink); color: var(--paper); }
+  .section__label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 20px;
+  }
+  .section__title {
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 600;
+    letter-spacing: -.025em;
+    line-height: 1.04;
+    margin: 0 0 56px;
+    max-width: 22ch;
+  }
+  .section__title em {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-style: italic;
+  }
+  .section--dark .section__label { color: color-mix(in oklab, var(--paper) 50%, transparent); }
+  .section--dark .section__title { color: var(--paper); }
+
+  /* ─── Pain cards ───────────────────────────────────────────── */
+  .pains {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 760px) { .pains { grid-template-columns: 1fr; } }
+  .pain {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 32px;
+    transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s, border-color .3s;
+  }
+  .pain:hover {
+    transform: translateY(-2px);
+    border-color: var(--coral-soft);
+    box-shadow: var(--shadow-md);
+  }
+  .pain__quote {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(22px, 2vw, 28px);
+    line-height: 1.2;
+    margin: 0 0 16px;
+    color: var(--ink);
+  }
+  .pain__quote::before { content: '«'; color: var(--coral); margin-right: 2px; }
+  .pain__quote::after  { content: '»'; color: var(--coral); margin-left: 2px; }
+  .pain__body {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .pain__body strong { color: var(--ink); font-weight: 600; }
+
+  .cta-row {
+    margin-top: 56px;
+    display: flex;
+    justify-content: center;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 32px;
+    background: var(--coral);
+    color: var(--paper);
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: var(--r-pill);
+    transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s, background .2s;
+    box-shadow: 0 4px 12px color-mix(in oklab, var(--coral) 30%, transparent);
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+    background: color-mix(in oklab, var(--coral) 92%, black);
+    box-shadow: 0 12px 28px color-mix(in oklab, var(--coral) 35%, transparent);
+  }
+  .btn:active { transform: translateY(0); }
+  .btn__arrow { transition: transform .25s cubic-bezier(.2,.8,.2,1); }
+  .btn:hover .btn__arrow { transform: translateX(4px); }
+  .btn--ink { background: var(--ink); box-shadow: 0 4px 12px color-mix(in oklab, var(--ink) 25%, transparent); }
+  .btn--ink:hover { background: var(--ink-2); box-shadow: 0 12px 28px color-mix(in oklab, var(--ink) 30%, transparent); }
+
+  /* ─── Methods ──────────────────────────────────────────────── */
+  .methods__intro {
+    font-size: clamp(20px, 1.8vw, 26px);
+    line-height: 1.4;
+    margin: 0 0 16px;
+    max-width: 50ch;
+  }
+  .methods__intro strong { font-weight: 600; }
+  .methods__sub {
+    font-size: 17px;
+    color: var(--ink-2);
+    line-height: 1.6;
+    max-width: 60ch;
+    margin: 0 0 56px;
+  }
+  .methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 880px) { .methods { grid-template-columns: 1fr; } }
+  .method {
+    padding: 36px 28px;
+    border-radius: var(--r-lg);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    transition: transform .4s cubic-bezier(.2,.8,.2,1), background .3s;
+  }
+  .method:hover { transform: translateY(-2px); background: var(--white); }
+  .method__icon {
+    width: 44px; height: 44px;
+    border-radius: 14px;
+    background: var(--coral);
+    color: var(--paper);
+    display: grid; place-items: center;
+    margin-bottom: 24px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 400;
+  }
+  .method:nth-child(2) .method__icon { background: var(--sky-bg); }
+  .method:nth-child(3) .method__icon { background: var(--citrus-bg); color: var(--ink); }
+  .method__name {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    margin: 0 0 12px;
+  }
+  .method__body {
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .methods__outro {
+    margin-top: 56px;
+    text-align: center;
+    font-size: clamp(20px, 2vw, 28px);
+    font-family: var(--font-serif);
+    font-style: italic;
+    line-height: 1.3;
+    color: var(--ink);
+    max-width: 32ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .methods__outro strong { font-style: normal; font-weight: 600; }
+
+  /* ─── Pricing ──────────────────────────────────────────────── */
+  .pricing__intro {
+    font-size: 18px;
+    color: var(--ink-2);
+    margin: 0 0 48px;
+    max-width: 60ch;
+  }
+  .pricing {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 900px) { .pricing { grid-template-columns: 1fr; } }
+  .price {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s, border-color .3s;
+  }
+  .price:hover {
+    transform: translateY(-3px);
+    border-color: var(--coral-soft);
+    box-shadow: var(--shadow-lg);
+  }
+  .price--featured {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+    position: relative;
+  }
+  .price--featured:hover { background: var(--ink-2); }
+  .price--featured .price__name { color: var(--paper); }
+  .price--featured .price__amount { color: var(--paper); }
+  .price--featured .price__hint { color: color-mix(in oklab, var(--paper) 60%, transparent); }
+  .price--featured .price__item { color: color-mix(in oklab, var(--paper) 80%, transparent); }
+  .price--featured .price__item::before { background: var(--coral); }
+
+  .price__badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: var(--r-pill);
+    background: var(--coral);
+    color: var(--paper);
+    font-weight: 600;
+  }
+  .price__name {
+    font-size: 14px;
+    font-family: var(--font-mono);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin: 0 0 16px;
+  }
+  .price__amount {
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 600;
+    letter-spacing: -.03em;
+    line-height: 1;
+    margin: 0 0 8px;
+  }
+  .price__amount em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink-mute);
+    font-size: .5em;
+    margin-left: 6px;
+    letter-spacing: 0;
+  }
+  .price__hint {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ink-3);
+    margin: 0 0 28px;
+  }
+  .price__list {
+    list-style: none;
+    margin: 0 0 32px;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+    flex: 1;
+  }
+  .price__item {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    padding-left: 22px;
+    position: relative;
+  }
+  .price__item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 10px;
+    width: 12px; height: 1.5px;
+    background: var(--coral);
+  }
+  .price__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border-radius: var(--r-pill);
+    border: 1.5px solid var(--ink);
+    color: var(--ink);
+    font-size: 15px;
+    font-weight: 600;
+    transition: background .2s, color .2s, transform .2s;
+  }
+  .price__cta:hover { background: var(--ink); color: var(--paper); transform: translateY(-1px); }
+  .price--featured .price__cta {
+    border-color: var(--coral);
+    background: var(--coral);
+    color: var(--paper);
+  }
+  .price--featured .price__cta:hover { background: color-mix(in oklab, var(--coral) 92%, black); }
+
+  /* ─── About ────────────────────────────────────────────────── */
+  .about {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+  @media (max-width: 880px) { .about { grid-template-columns: 1fr; gap: 36px; } }
+  .about__photo {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    background: var(--paper-2);
+    box-shadow: var(--shadow-lg);
+  }
+  .about__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .about__name {
+    font-size: clamp(28px, 3.2vw, 44px);
+    font-weight: 600;
+    letter-spacing: -.025em;
+    margin: 0 0 24px;
+  }
+  .about__name em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+  }
+  .about__body {
+    font-size: 16.5px;
+    line-height: 1.65;
+    color: var(--ink-2);
+  }
+  .about__body p { margin: 0 0 16px; }
+  .about__body p:last-child { margin-bottom: 0; }
+
+  /* ─── FAQ ──────────────────────────────────────────────────── */
+  .faq {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .faq__item {
+    border-top: 1px solid var(--line);
+    transition: border-color .3s;
+  }
+  .faq__item:last-child { border-bottom: 1px solid var(--line); }
+  .faq__item[open] { border-color: var(--ink-mute); }
+  .faq__sum {
+    list-style: none;
+    cursor: pointer;
+    padding: 28px 0;
+    font-size: clamp(18px, 1.4vw, 21px);
+    font-weight: 500;
+    letter-spacing: -.01em;
+    color: var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    user-select: none;
+  }
+  .faq__sum::-webkit-details-marker { display: none; }
+  .faq__sum-icon {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ink-mute);
+    color: var(--ink-mute);
+    display: grid; place-items: center;
+    font-size: 18px;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: transform .3s cubic-bezier(.2,.8,.2,1), background .2s, color .2s, border-color .2s;
+  }
+  .faq__item[open] .faq__sum-icon {
+    transform: rotate(45deg);
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .faq__body {
+    padding: 0 60px 28px 0;
+    font-size: 16.5px;
+    line-height: 1.65;
+    color: var(--ink-2);
+    animation: faqOpen .35s cubic-bezier(.2,.8,.2,1);
+  }
+  @keyframes faqOpen {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── Not-for ─────────────────────────────────────────────── */
+  .notfor__list {
+    display: grid;
+    gap: 16px;
+    max-width: 760px;
+  }
+  .notfor__item {
+    display: flex;
+    gap: 20px;
+    padding: 24px 28px;
+    background: color-mix(in oklab, var(--paper) 50%, transparent);
+    border-radius: var(--r-lg);
+    border: 1px solid color-mix(in oklab, var(--paper) 40%, transparent);
+  }
+  .notfor__dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--coral);
+    margin-top: 9px;
+    flex-shrink: 0;
+  }
+  .notfor__title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 6px;
+    color: var(--paper);
+    letter-spacing: -.01em;
+  }
+  .notfor__body {
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: color-mix(in oklab, var(--paper) 75%, transparent);
+    margin: 0;
+  }
+
+  /* ─── Final CTA ───────────────────────────────────────────── */
+  .final {
+    text-align: center;
+    padding: var(--section-y) 0;
+  }
+  .final__title {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 600;
+    letter-spacing: -.03em;
+    line-height: 1.02;
+    margin: 0 0 24px;
+  }
+  .final__title em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+  }
+  .final__body {
+    font-size: clamp(17px, 1.4vw, 19px);
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0 auto 40px;
+    max-width: 56ch;
+  }
+
+  /* ─── Footer ─────────────────────────────────────────────── */
+  .footer {
+    border-top: 1px solid var(--line);
+    padding: 32px 0;
+    font-size: 14px;
+    color: var(--ink-mute);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer a:hover { color: var(--ink); }
+
+  /* ─── Reveal animation ───────────────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1);
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal[data-delay="1"] { transition-delay: .08s; }
+  .reveal[data-delay="2"] { transition-delay: .16s; }
+  .reveal[data-delay="3"] { transition-delay: .24s; }
+  .reveal[data-delay="4"] { transition-delay: .32s; }
+
+  /* Mobile sticky bottom CTA */
+  .mobile-cta {
+    display: none;
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    z-index: 60;
+    background: var(--coral);
+    color: var(--paper);
+    text-align: center;
+    font-weight: 600;
+    padding: 16px;
+    border-radius: var(--r-pill);
+    box-shadow: 0 10px 30px color-mix(in oklab, var(--coral) 35%, transparent);
+  }
+  @media (max-width: 640px) {
+    .mobile-cta { display: block; }
+    .nav__cta { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav__inner">
+    <a class="nav__brand" href="#top">
+      <span class="nav__mark">A</span>
+      <span class="nav__brand-text">Андрей Андреев<span class="mute">  ·  коучинг</span></span>
+    </a>
+    <a class="nav__cta" href="https://cal.com/andrei-andreev/first" target="_blank" rel="noopener">Записаться</a>
+  </div>
+</nav>
+
+<section class="hero" id="top">
+  <div class="container">
+    <div class="hero__eyebrow reveal">Коучинг для тех, кто уже всё сделал «правильно»</div>
+    <h1 class="hero__title reveal">Бизнес есть.<br/>Семья есть. Дом есть. <em>Что-то ещё?</em></h1>
+    <p class="hero__lede reveal" data-delay="1">Снаружи — всё, чего хотели десять лет назад: компания, репутация, отпуск три раза в год, дети в хорошей школе, машина, на которую раньше засматривались в салоне. Внутри — тише, чем должно быть в этой точке. И мысль, которую сначала отгоняем, потом записываем в заметки, потом перечитываем в три часа ночи: жизнь идёт — а будто не моя.</p>
+    <p class="hero__lede reveal" data-delay="2">Кто-то называет это кризисом среднего возраста. Кто-то — выгоранием.</p>
+    <p class="hero__kicker reveal" data-delay="3">Я называю — путь. И прошёл его не один раз.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section__label reveal">Запросы</div>
+    <h2 class="section__title reveal">Без волшебных таблеток. <em>Только реальные запросы</em></h2>
+
+    <div class="pains">
+      <div class="pain reveal">
+        <p class="pain__quote">Знаю — но не делаю</p>
+        <p class="pain__body">Всё ведь понятно — вот цель, вот шаги, вот человек, которого пора нанять, вот разговор, который пора провести. Понятно — третий месяц. Пятый. Год. А делаем то же, что и раньше — звоним тем же клиентам, читаем те же книги, обещаем себе понедельник. И каждый вечер — короткое такое противное чувство, которое мы научились называть «устал» и не называть никак больше.</p>
+      </div>
+      <div class="pain reveal" data-delay="1">
+        <p class="pain__quote">Хочу проявляться — но страшно</p>
+        <p class="pain__body">Идея сидит давно — в заметках, в черновиках, в разговорах с женой за ужином, в голове по дороге в офис. Готовый запуск, готовый блог, готовое выступление — лежат и ждут. А наружу выходит — никогда. Страшно потерять то, что есть (а есть много). <strong>Страшно начать и оказаться обычным.</strong></p>
+      </div>
+      <div class="pain reveal" data-delay="2">
+        <p class="pain__quote">Достиг — но не чувствую</p>
+        <p class="pain__body">Галочки расставлены — дом, машина, бизнес, дети в хорошей школе, отпуск три раза в год, инстаграм, в который смотришь и узнаёшь себя только по фоткам. Картинка — как у тех, на кого мы смотрели в тридцать. <strong>Внутри — никак. Не плохо, не хорошо — просто никак.</strong> И главный вопрос, на который у нас давно нет ответа: ради чего всё это было, и куда дальше, если «дальше» уже как бы наступило.</p>
+      </div>
+      <div class="pain reveal" data-delay="3">
+        <p class="pain__quote">На себя времени нет</p>
+        <p class="pain__body">На команду — есть. На детей — есть. На жену — стараемся, чтобы было. На родителей — обещаем, что в следующем месяце точно. На себя — потом. <strong>На других деньги уходят легко:</strong> подарки, билеты, рестораны, ремонт, школа, репетиторы. <strong>На себя — «да ладно, у меня же всё есть».</strong> У нас и правда всё есть. Кроме нас самих, кажется.</p>
+      </div>
+    </div>
+
+    <div class="cta-row reveal">
+      <a class="btn" href="https://cal.com/andrei-andreev/first" target="_blank" rel="noopener">
+        Записаться на сессию-знакомство
+        <span class="btn__arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--soft">
+  <div class="container">
+    <div class="section__label reveal">Как я работаю</div>
+    <h2 class="section__title reveal">Не работаем с целями по SMART <em>—</em> работаем с тем, что мешает их делать</h2>
+    <p class="methods__sub reveal">Цели мы и так умеем ставить, тут коуч не нужен. Я работаю с тем, что мешает делать то, что уже знаем — с тем, что в кабинете кризис-менеджмента и в спальне в три ночи звучит одним и тем же голосом.</p>
+
+    <div class="methods">
+      <div class="method reveal">
+        <div class="method__icon">i</div>
+        <h3 class="method__name">ICF-коучинг</h3>
+        <p class="method__body">Структура и фокус. Где мы на самом деле, чего на самом деле хотим, и почему до сих пор не сделали — без круговых разговоров и красивых формулировок, за которыми нет движения.</p>
+      </div>
+      <div class="method reveal" data-delay="1">
+        <div class="method__icon">e</div>
+        <h3 class="method__name">Экспоненциальный коучинг</h3>
+        <p class="method__body">Работа с внутренними конфликтами — теми, из-за которых одна часть нас хочет, а другая упирается ногами в пол. Не «поверь в себя», не уговоры — а понимание, кто там внутри упирается и почему у него есть на это право.</p>
+      </div>
+      <div class="method reveal" data-delay="2">
+        <div class="method__icon">s</div>
+        <h3 class="method__name">IFS</h3>
+        <p class="method__body">Работа с частями: с той, что боится, с той, что защищает, с той, что молчит третий год. Не воевать с собой — договариваться. Внутри у нас сидит вполне взрослый совет директоров, пора пообщаться с ними.</p>
+      </div>
+    </div>
+
+    <p class="methods__outro reveal">Результат — не «заставить себя».<br/><strong>Результат — перестать мешать.</strong></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section__label reveal">Формат</div>
+    <h2 class="section__title reveal">60–90 минут в Zoom. <em>Без секретарей и календарных танцев</em></h2>
+    <p class="pricing__intro reveal">Начинаем с сессии-знакомства — посмотреть друг на друга и понять, есть ли смысл начинать. Если контакт — позову в долгую. Если нет — расходимся друзьями, без уговоров.</p>
+
+    <div class="pricing">
+      <div class="price reveal">
+        <p class="price__name">Одна сессия</p>
+        <p class="price__amount">30 000<em>₽</em></p>
+        <p class="price__hint">Для тех, кто хочет попробовать формат и понять, есть ли в этом смысл для нас.</p>
+        <ul class="price__list">
+          <li class="price__item">60–90 минут в Zoom</li>
+          <li class="price__item">Работа с конкретным запросом</li>
+          <li class="price__item">План действий после сессии</li>
+        </ul>
+        <a class="price__cta" href="https://cal.com/andrei-andreev/first" target="_blank" rel="noopener">Записаться →</a>
+      </div>
+
+      <div class="price price--featured reveal" data-delay="1">
+        <span class="price__badge">Чаще всего</span>
+        <p class="price__name">Пакет 7 сессий</p>
+        <p class="price__amount">210 000<em>₽</em></p>
+        <p class="price__hint">Достаточно, чтобы первые сдвиги стали устойчивыми, а не вернулись через месяц к тем же проблемам.</p>
+        <ul class="price__list">
+          <li class="price__item">7 сессий по 60–90 минут</li>
+          <li class="price__item">Диагностика внутренних блоков</li>
+          <li class="price__item">Индивидуальная стратегия работы</li>
+          <li class="price__item">Поддержка между сессиями</li>
+          <li class="price__item">Гибкий график (раз в 2 недели)</li>
+        </ul>
+        <a class="price__cta" href="https://cal.com/andrei-andreev/first" target="_blank" rel="noopener">Записаться →</a>
+      </div>
+
+      <div class="price reveal" data-delay="2">
+        <p class="price__name">Пакет 15 сессий</p>
+        <p class="price__amount">400 000<em>₽</em></p>
+        <p class="price__hint">Глубокая работа — для тех, кто пришёл не примеряться, а двигаться.</p>
+        <ul class="price__list">
+          <li class="price__item">15 сессий по 60–90 минут</li>
+          <li class="price__item">Полная диагностика и проработка</li>
+          <li class="price__item">Индивидуальная стратегия работы</li>
+          <li class="price__item">Поддержка между сессиями</li>
+          <li class="price__item">Гибкий график (раз в 2 недели)</li>
+        </ul>
+        <a class="price__cta" href="https://cal.com/andrei-andreev/first" target="_blank" rel="noopener">Записаться →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--soft">
+  <div class="container">
+    <div class="section__label reveal">Обо мне</div>
+    <h2 class="section__title reveal">Андрей <em>Андреев</em></h2>
+
+    <div class="about">
+      <div class="about__body reveal">
+        <p>Двадцать с лишним лет в бизнесе — и не одном, а нескольких: тех, что выходили на миллиард в год со штатом семьдесят человек, и тех, в которых я был и финдиректором, и CEO, и ткани на производство отвозил. Поднимал инвестиции на стартапы в США — и в те же годы был по уши в долгах. Женат двадцать с лишним лет, у нас три дочки.</p>
+        <p>Я не про «успешный успех» — я видел, как он выглядит изнутри, и могу рассказать, что внутри там бывает довольно тихо. Я про жизнь — разную, неровную, иногда смешную, чаще честную.</p>
+        <p>Прошёл свой кризис тридцати и свой кризис сорока — известная территория.</p>
+        <p>8 лет в спортивной гимнастике — три, четыре, пять тренировок в неделю, потому что тело знает то, чего голова уже забыла. 10 лет тантры, 5 лет личной терапии, годы медитаций — таких, о которых не пишут карусели в инстаграме.</p>
+      </div>
+      <div class="about__photo reveal" data-delay="1">
+        <img src="portrait.jpg" alt="Андрей Андреев" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section__label reveal">FAQ</div>
+    <h2 class="section__title reveal" style="text-align:center; margin-left:auto; margin-right:auto;">Частые <em>вопросы</em></h2>
+
+    <div class="faq">
+      <details class="faq__item">
+        <summary class="faq__sum">Чем это отличается от психотерапии?<span class="faq__sum-icon">+</span></summary>
+        <p class="faq__body">Терапия идёт назад — к тому, откуда выросло. Коучинг идёт вперёд — к тому, что мы хотим сделать сейчас и почему не делаем. Я не лечу — помогаю двигаться. Но границы держу аккуратно: если в процессе вылезает то, что нужно проработать с психологом — скажу прямо.</p>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__sum">Я уже был у коуча — не помогло<span class="faq__sum-icon">+</span></summary>
+        <p class="faq__body">Бывает. Коучинг — это контакт двух конкретных людей. Иногда не совпадает подход, иногда — химия, иногда — момент в жизни. Поэтому есть сессия-знакомство: посмотреть друг на друга и понять, есть ли смысл начинать. Если нет — спокойно расходимся, никого не уговариваю.</p>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__sum">Сколько нужно времени, чтобы увидеть результат?<span class="faq__sum-icon">+</span></summary>
+        <p class="faq__body">Первые сдвиги — обычно к третьей-четвёртой сессии. Устойчивые изменения — от трёх месяцев. Это не магия и не «восемь шагов к лучшей версии себя», а нормальная работа — последовательная, иногда скучная, иногда неудобная.</p>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__sum">Что если я не знаю, чего хочу?<span class="faq__sum-icon">+</span></summary>
+        <p class="faq__body">Самый частый запрос — «вроде всё есть, а чего хочу, не понимаю». Здесь и начинаем.</p>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__sum">Можно ли без пакета?<span class="faq__sum-icon">+</span></summary>
+        <p class="faq__body">Да, после знакомства можно работать по одной — 30 000 ₽ за сессию.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="section section--dark">
+  <div class="container">
+    <div class="section__label reveal">Кому точно не сюда</div>
+    <h2 class="section__title reveal">Это <em>не</em> магазин универсальных решений</h2>
+    <p style="font-size:17px; line-height:1.6; color:color-mix(in oklab, var(--paper) 75%, transparent); max-width:56ch; margin:0 0 48px;" class="reveal">Коучинг — про движение вперёд. Не про разбор прошлого, не про терапию, не про «просто поговорить». Если узнаёте себя ниже — скорее всего, нужен другой специалист, и это нормально.</p>
+
+    <div class="notfor__list">
+      <div class="notfor__item reveal">
+        <span class="notfor__dot"></span>
+        <div>
+          <h3 class="notfor__title">Запрос на терапию</h3>
+          <p class="notfor__body">Панические атаки, травмы, длительная тревога, «хочу вернуться в то состояние, которое было раньше». Здесь нужен психотерапевт — и обращение к нему будет лучшим, что можно для себя сделать.</p>
+        </div>
+      </div>
+      <div class="notfor__item reveal" data-delay="1">
+        <span class="notfor__dot"></span>
+        <div>
+          <h3 class="notfor__title">Нет готовности к действиям</h3>
+          <p class="notfor__body">Если ищете кого-то, кто будет мотивировать и контролировать. Я даю направление и инструменты — но делать всё равно вам. Между сессиями будут задания, и они требуют усилий.</p>
+        </div>
+      </div>
+      <div class="notfor__item reveal" data-delay="2">
+        <span class="notfor__dot"></span>
+        <div>
+          <h3 class="notfor__title">Нет конкретного запроса</h3>
+          <p class="notfor__body">«Не знаю, чего хочу» без готовности это выяснять. Можем начать с размытого — но нужна честная готовность копать.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="container">
+    <h2 class="final__title reveal">Сессия-<em>знакомство</em></h2>
+    <p class="final__body reveal" data-delay="1">Записывайтесь — поговорим. Расскажете, что не отпускает, с чем хотите поработать, что давно сидит занозой и никуда не делось. С меня — план действий и честная обратная связь, без «у вас огромный потенциал» и других вежливых формулировок. Если будет контакт — позову в долгую работу. Если нет — разойдёмся друзьями.</p>
+    <div class="reveal" data-delay="2">
+      <a class="btn" href="https://cal.com/andrei-andreev/first" target="_blank" rel="noopener">
+        Записаться
+        <span class="btn__arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container" style="display:flex; flex-wrap:wrap; gap:16px; justify-content:space-between; align-items:center;">
+    <span>© Андрей Андреев · коучинг</span>
+    <span><a href="https://instagram.com/andreyandreev.me" target="_blank" rel="noopener">Instagram</a> · <a href="https://cal.com/andrei-andreev/first" target="_blank" rel="noopener">cal.com</a></span>
+  </div>
+</footer>
+
+<a class="mobile-cta" href="https://cal.com/andrei-andreev/first" target="_blank" rel="noopener">Записаться на сессию-знакомство →</a>
+
+<script>
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
